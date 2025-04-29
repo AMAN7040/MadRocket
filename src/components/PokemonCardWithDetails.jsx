@@ -1,4 +1,5 @@
 import { useDetails } from "../hooks/useDetails";
+import PokemonCard from "./PokemonCard";
 import SkeletonCard from "./SkeletonCard";
 
 const PokemonCardWithDetails = ({ url }) => {
@@ -15,7 +16,14 @@ const PokemonCardWithDetails = ({ url }) => {
 
   if (!data) return <p>NOT DETAILS</p>;
 
-  return <p className="text-blue-400">{data?.name}</p>;
+  return (
+    <PokemonCard
+      id={data?.id}
+      name={data?.name}
+      image={data?.image}
+      type={data?.type}
+    />
+  );
 };
 
 export default PokemonCardWithDetails;
