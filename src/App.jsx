@@ -1,20 +1,15 @@
-import { usePokemon } from "./hooks/usePokemon";
+import Header from "./components/Header";
+import PokemonList from "./components/pokemonList";
+import { SearchProvider } from "./context/SearchContext";
 
 function App() {
-  const { data, isLoading, isError, error } = usePokemon();
-
-  if (isLoading) return <div>Loading....</div>;
-
-  if (isError) return <div>{error?.message}</div>;
-
   return (
-    <>
-      <div className="">
-        {data.map((pokemon) => (
-          <p>{pokemon.name}</p>
-        ))}
-      </div>
-    </>
+    <SearchProvider>
+      <>
+        <Header />
+        <PokemonList />
+      </>
+    </SearchProvider>
   );
 }
 
