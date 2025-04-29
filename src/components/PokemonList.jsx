@@ -3,9 +3,16 @@ import { usePokemon } from "../hooks/usePokemon";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import SkeletonCard from "./SkeletonCard";
 import ErrorFallback from "./ErrorFallback";
+import PokemonCardWithDetails from "./PokemonCardWithDetails";
 
 const PokemonList = () => {
-  const { data: pokemons = [], isLoading, isError, error, refetch } = usePokemon();
+  const {
+    data: pokemons = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = usePokemon();
   const parentRef = useRef();
 
   const [viewport, setViewport] = useState({
@@ -16,9 +23,9 @@ const PokemonList = () => {
 
   const calculateViewport = () => {
     const width = window.innerWidth;
-    if (width >= 1024) return { columns: 3, rowHeight: 200, gap: "gap-6" };
-    if (width >= 640) return { columns: 2, rowHeight: 180, gap: "gap-5" };
-    return { columns: 1, rowHeight: 160, gap: "gap-4" };
+    if (width >= 1024) return { columns: 3, rowHeight: 400, gap: "gap-6" };
+    if (width >= 640) return { columns: 2, rowHeight: 320, gap: "gap-6" };
+    return { columns: 1, rowHeight: 250, gap: "gap-5" };
   };
 
   useEffect(() => {
@@ -55,7 +62,7 @@ const PokemonList = () => {
       </div>
     );
   }
-  
+
   if (isError) {
     return <ErrorFallback error={error} onReset={refetch} />;
   }
@@ -65,7 +72,7 @@ const PokemonList = () => {
   return (
     <div
       ref={parentRef}
-      className="h-[calc(100vh-70px)] overflow-auto bg-blue-50 p-2 rounded-md border border-blue-100 shadow-inner"
+      className="h-[calc(100vh-70px)] overflow-auto bg-bg p-2 rounded-md border shadow-inner"
     >
       <div
         style={{
@@ -83,21 +90,14 @@ const PokemonList = () => {
           return (
             <div
               key={rowIndex}
-              className={`absolute w-full px-2 grid ${gap}`}
+              className={`absolute w-full px-2 grid justify-items-center ${gap}`}
               style={{
                 gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
                 transform: `translateY(${virtualRow.start}px)`,
               }}
             >
               {items.map((item) => (
-                <div
-                  key={item.name}
-                  className="bg-white h-full rounded-lg p-4 text-center shadow hover:shadow-md transition-all"
-                >
-                  <p className="font-semibold capitalize text-gray-800 text-lg">
-                    {item.name}
-                  </p>
-                </div>
+                <PokemonCardWithDetails key={item} url={item?.url} />
               ))}
             </div>
           );
