@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPokemons } from "../services/pokemonService";
+import {getPokemons} from "../services/pokemonService"
 
 export const usePokemon = () => {
   return useQuery({
@@ -7,3 +7,4 @@ export const usePokemon = () => {
     queryFn: getPokemons,
   });
 };
+  
