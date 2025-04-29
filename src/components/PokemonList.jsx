@@ -14,14 +14,14 @@ const PokemonList = () => {
     refetch,
   } = usePokemon();
 
-  const { searchTerm } = useSearch();
+  const { debounceSearchTerm } = useSearch();
 
   const parentRef = useRef();
 
   const filteredPokemons = useMemo(() => {
     if (!searchTerm) return pokemons;
     return pokemons.filter((pokemon) =>
-      pokemon.name.toLowerCase().includes(searchTerm)
+      pokemon.name.toLowerCase().includes(debounceSearchTerm.toLowerCase())
     );
   }, [searchTerm, pokemons]);
 
