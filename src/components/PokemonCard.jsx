@@ -15,7 +15,7 @@ const PokemonCard = ({ id, name, image, type = [] }) => {
 
   return (
     <div
-      className={`rounded-2xl shadow-md border-gray-100 w-[85vw] max-w-90 min-h-50 sm:w-[45vw] sm:max-w-[450px] sm:min-h-64 lg:w-[30vw] lg:max-w-[480px] p-1 lg:min-h-85 flex justify-between lg:justify-normal lg:flex-col lg:items-center lg:gap-3`}
+      className={`rounded-2xl shadow-md border-gray-100 w-[85vw] max-w-90 min-h-50 sm:w-[45vw] sm:max-w-[450px] sm:min-h-64 lg:w-[30vw] lg:max-w-[480px] p-1 lg:min-h-85 flex justify-between lg:justify-normal lg:flex-col lg:items-center lg:gap-3 transition-all duration-75 ease-in-out hover:scale-90`}
       aria-label={`Pokemon card for ${name}`}
       style={cardStyle}
     >
@@ -42,7 +42,7 @@ const PokemonCard = ({ id, name, image, type = [] }) => {
           {type.map((t, i) => (
             <span
               key={i}
-              className="px-2 py-2 bg-blue-100 text-blue-800 rounded-xl text-[clamp(15px,2.5vw,22px)] font-medium"
+              className="px-2 py-2 bg-gray-200 text-primary rounded-xl text-[clamp(15px,2.5vw,20px)] font-medium hover:bg-gray-200"
             >
               {t}
             </span>
