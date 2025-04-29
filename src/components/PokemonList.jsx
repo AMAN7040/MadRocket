@@ -19,11 +19,11 @@ const PokemonList = () => {
   const parentRef = useRef();
 
   const filteredPokemons = useMemo(() => {
-    if (!searchTerm) return pokemons;
+    if (!debounceSearchTerm) return pokemons;
     return pokemons.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(debounceSearchTerm.toLowerCase())
     );
-  }, [searchTerm, pokemons]);
+  }, [debounceSearchTerm, pokemons]);
 
   if (isLoading) return <SkeletonLoader />;
 
@@ -31,9 +31,7 @@ const PokemonList = () => {
     return <ErrorFallback error={error} onReset={refetch} />;
   }
   if (!filteredPokemons.length)
-    return (
-      <p className="text-center text-gray-500">No Pokémon Found.</p>
-    );
+    return <p className="text-center text-gray-500">No Pokémon Found.</p>;
 
   return <VirtualizedGrid pokemons={filteredPokemons} parentRef={parentRef} />;
 };
