@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useResponsiveViewport } from "../hooks/useResponsiveViewport";
-import PokemonCardWithDetails from "./PokemonCardWithDetails";
+import PokemonCardWithDetails from './PokemonCardWithDetails';
 
 
 const VirtualizedGrid = ({ pokemons, parentRef }) => {
@@ -22,7 +22,7 @@ const VirtualizedGrid = ({ pokemons, parentRef }) => {
   return (
     <div
       ref={parentRef}
-      className="h-[calc(100vh-70px)] overflow-auto bg-bg p-2 rounded-md border shadow-inner"
+      className="h-[calc(100vh-70px)] overflow-auto bg-bg p-2 rounded-md pt-5 shadow-inner"
     >
       <div
         style={{
