@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { usePokemon } from "../hooks/usePokemon";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import SkeletonCard from "./SkeletonCard";
+import ErrorFallback from "./ErrorFallback";
 
 const PokemonList = () => {
-  const { data: pokemons = [], isLoading, isError } = usePokemon();
+  const { data: pokemons = [], isLoading, isError, error, refetch } = usePokemon();
   const parentRef = useRef();
 
   const [viewport, setViewport] = useState({
@@ -42,17 +44,28 @@ const PokemonList = () => {
     overscan: 4,
   });
 
-  if (isLoading)
-    return <p className="text-center text-gray-600">Loading Pokémon...</p>;
-  if (isError)
-    return <p className="text-center text-red-600">Failed to load data.</p>;
+  if (isLoading) {
+    return (
+      <div className="overflow-auto h-[calc(100vh-70px)]  rounded-md p-2">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-2">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+  
+  if (isError) {
+    return <ErrorFallback error={error} onReset={refetch} />;
+  }
   if (!pokemons.length)
     return <p className="text-center text-gray-500">No Pokémon found.</p>;
 
   return (
     <div
       ref={parentRef}
-      className="h-[100vh - 70px] overflow-auto bg-blue-50 p-2 rounded-md border border-blue-100 shadow-inner"
+      className="h-[calc(100vh-70px)] overflow-auto bg-blue-50 p-2 rounded-md border border-blue-100 shadow-inner"
     >
       <div
         style={{
