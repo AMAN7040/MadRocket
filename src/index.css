@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+:root{
+    --font-inter: "Inter", sans-serif;
+    --color-primary:  #000000;
+    --color-bg: #e6ebea;
+}
+
+@theme{
+    --font-inter: var(--font-inter);
+    --color-primary: var(--color-primary);
+    --color-bg: var(--color-bg);
+
+}
+
